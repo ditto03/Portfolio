@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CASE-02 · Communication Barrier Nullifier Using Machine Learning — Ditto D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>DITTO_D // PORTFOLIO</div>
+    <div class="navlinks">
+      <a href="index.html#capabilities">skills</a>
+      <a href="index.html#cases">case files</a>
+      <a href="index.html#credentials">credentials</a>
+      <a href="index.html#documents">documents</a>
+      <a href="index.html#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="breadcrumb"><a href="index.html">portfolio</a> / <a href="index.html#cases">case files</a> / CASE-02</div>
+
+  <div class="case-hero">
+    <div class="case-hero-top">
+      <span class="case-id">CASE-02</span>
+      <span class="status-pill completed">COMPLETED</span>
+    </div>
+    <h1>Communication Barrier Nullifier Using Machine Learning</h1>
+    <p class="lede">
+      A real-time system that turns hand gestures into text and speech — and speech back into gestures —
+      built to help bridge communication between the Deaf and hearing communities.
+    </p>
+    <div class="meta-strip">
+      <div><span class="m-label">Category</span><span class="m-value">Applied ML / Computer Vision</span></div>
+      <div><span class="m-label">Team</span><span class="m-value">Ajay Deepak J & Ditto D</span></div>
+      <div><span class="m-label">Guide</span><span class="m-value">Ms. Mehveesh Mariya, Dept. of CS</span></div>
+      <div><span class="m-label">Institution</span><span class="m-value">Sathyabama Institute of Science and Technology</span></div>
+    </div>
+  </div>
+
+  <div class="prose">
+
+    <h2>Objective</h2>
+    <p>
+      Sign language is a full, expressive language — but most people who don't sign have no way to understand it
+      without an interpreter. This project's goal was to close that gap in real time: recognize hand gestures
+      through a webcam, convert them to text and spoken audio, and support the reverse direction too, so a
+      hearing person's speech could be converted to text and eventually back to signs.
+    </p>
+
+    <h2>System architecture</h2>
+    <p>The pipeline runs in five stages, from raw camera input to spoken output:</p>
+    <ol>
+      <li><strong>Hand landmark detection</strong> — MediaPipe tracks 21 key points per hand (wrist, finger joints, fingertips) from the live webcam feed.</li>
+      <li><strong>Feature extraction & preprocessing</strong> — landmark coordinates are cleaned, normalized, and written to a structured dataset (CSV) for training.</li>
+      <li><strong>Model training</strong> — multiple classifiers are trained on the landmark features to recognize distinct gestures.</li>
+      <li><strong>Hybrid stacking</strong> — a meta-model combines the base classifiers' predictions to squeeze out extra accuracy.</li>
+      <li><strong>Output conversion</strong> — the recognized gesture is converted to on-screen text and spoken aloud; a separate module converts speech back to text.</li>
+    </ol>
+
+    <h2>Hand tracking</h2>
+    <p>
+      MediaPipe's hand landmark model provided 21 tracked points per hand in real time — from the wrist through
+      each fingertip — giving enough spatial detail to distinguish between visually similar gestures. These
+      landmark coordinates, rather than raw pixels, became the input features for every downstream model,
+      which kept the system lighter and less sensitive to lighting or background than a pure image-classification
+      approach.
+    </p>
+
+    <h2>Model training</h2>
+    <p>Four models were trained and compared on the landmark dataset:</p>
+    <ul>
+      <li><strong>Random Forest</strong> — an ensemble of decision trees, used as the primary classifier for its balance of accuracy and stability.</li>
+      <li><strong>AdaBoost</strong> — combined multiple weak classifiers into a stronger one by focusing on previously misclassified examples.</li>
+      <li><strong>Gradient Boosting</strong> — iteratively corrected the errors of prior models to improve overall performance.</li>
+      <li><strong>Hybrid Stacking Classifier</strong> — a meta-model layered on top of the above, blending their predictions for the final output.</li>
+    </ul>
+    <p>
+      Supporting experiments also compared <strong>SVM</strong> and <strong>K-Nearest Neighbors</strong> as
+      alternative classifiers during evaluation.
+    </p>
+
+    <h2>Evaluation</h2>
+    <p>
+      Each model was tested on a held-out split of the gesture dataset and scored primarily on
+      <strong>accuracy</strong> (correctly classified instances over total instances) and
+      <strong>precision</strong> (true positives over true positives plus false positives). A confusion matrix
+      was generated for the Random Forest classifier across an 11-gesture vocabulary, showing strong,
+      concentrated accuracy along the diagonal with only a small number of cross-class misclassifications —
+      confirming the landmark-based feature approach generalized well to unseen samples.
+    </p>
+
+    <h2>Output: text and speech</h2>
+    <p>
+      Once a gesture was classified, two lightweight modules handled the human-facing side of the system:
+    </p>
+    <ul>
+      <li><strong>Text-to-speech</strong> — built with <code>pyttsx3</code>, an offline speech synthesis library, converting recognized gesture text into spoken audio with adjustable rate and volume.</li>
+      <li><strong>Speech-to-text</strong> — built with the <code>speech_recognition</code> library, capturing microphone input, filtering ambient noise, and transcribing speech via Google's speech API.</li>
+    </ul>
+    <div class="codeblock"><code><span class="c-muted"># Simplified speech-to-text flow</span>
+recognizer = sr.Recognizer()
+with sr.Microphone() as source:
+    recognizer.adjust_for_ambient_noise(source)
+    audio = recognizer.listen(source)
+    text = recognizer.recognize_google(audio)</code></div>
+
+    <h2>Outcome</h2>
+    <p>
+      The result was a working, bidirectional prototype: a webcam feed could be turned into live on-screen text
+      and spoken words, gesture by gesture, with the ensemble/stacking approach giving noticeably more stable
+      classification than any single model alone. It's a practical demonstration of combining classical ML
+      ensembles with real-time computer vision to solve an accessibility problem.
+    </p>
+
+    <h2>Skills demonstrated</h2>
+    <div class="skills-used">
+      <span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">MediaPipe</span>
+      <span class="tag">Scikit-learn</span><span class="tag">Ensemble Learning</span>
+      <span class="tag">Feature Engineering</span><span class="tag">Model Evaluation</span>
+    </div>
+  </div>
+
+  <div class="case-nav">
+    <a href="case-01.html">← Previous case: Splunk SIEM Monitoring</a>
+    <a href="index.html#cases">Back to case files →</a>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-term reveal">
+      <div class="contact-line"><span class="k">$</span> contact --initiate --analyst "ditto-d"</div>
+      <div class="contact-line">resolving preferred channels... <span style="color:#7CDB8A">done</span></div>
+      <div class="contact-grid" id="contactGrid"></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> DITTO D — SOC Analyst Portfolio</span>
+      <span>status: <span style="color:#7CDB8A">actively seeking opportunities</span></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/common.js"></script>
+</body>
+</html>

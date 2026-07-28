@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ditto D — SOC Analyst Portfolio</title>
+<meta name="description" content="Portfolio of Ditto D — aspiring SOC Analyst and cybersecurity enthusiast. Projects, skills, and credentials.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>DITTO_D // PORTFOLIO</div>
+    <div class="navlinks">
+      <a href="#capabilities">skills</a>
+      <a href="#cases">case files</a>
+      <a href="#credentials">credentials</a>
+      <a href="#documents">documents</a>
+      <a href="#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="term">
+      <div class="term-bar">
+        <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
+        <span class="path">ditto@soc-workstation: ~/portfolio</span>
+      </div>
+      <div class="term-body">
+        <div class="prompt-line"><span class="arrow">$</span>whoami</div>
+        <h1 class="name">DITTO D</h1>
+        <div class="role-line">
+          <span>SOC ANALYST L1</span><span class="sep">/</span>
+          <span>ASPIRING CYBERSECURITY ANALYST</span>
+        </div>
+        <p class="pitch">
+          EC-Council Certified SOC Analyst focused on <strong>log analysis</strong>, <strong>threat detection</strong>,
+          and <strong>incident investigation</strong>. I build small, real security tooling — SIEM pipelines,
+          detection rules, monitoring alerts — and document every case end to end.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#cases">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            View case files
+          </a>
+          <a class="btn btn-ghost" href="#" id="resumeBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+            Download resume
+          </a>
+          <a class="btn btn-ghost" href="#contact">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg>
+            Contact
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticker-wrap">
+    <div class="ticker" id="ticker"></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="capabilities">
+    <div class="eyebrow">Capabilities</div>
+    <h2 class="h-title reveal">Skill modules</h2>
+    <p class="h-sub reveal">Core tooling and concepts I use for monitoring, detection, and investigation. Edit the <code>SKILLS</code> array in js/data.js to update this section.</p>
+    <div class="cap-grid" id="capGrid"></div>
+  </section>
+
+  <section id="cases">
+    <div class="eyebrow">Case Files</div>
+    <h2 class="h-title reveal">Projects</h2>
+    <p class="h-sub reveal">Hands-on security and technical projects, logged like real investigations. Edit the <code>CASES</code> array in js/data.js to add your own, and create a matching case-0X.html page for the full write-up.</p>
+    <div class="case-list" id="caseList"></div>
+  </section>
+
+  <section id="credentials">
+    <div class="eyebrow">Credentials</div>
+    <h2 class="h-title reveal">Certifications</h2>
+    <p class="h-sub reveal">Verified credentials. Add new certificates by extending the <code>CREDS</code> array in js/data.js.</p>
+    <div class="cred-grid" id="credGrid"></div>
+  </section>
+
+  <section id="documents">
+    <div class="eyebrow">Documents</div>
+    <h2 class="h-title reveal">Career files</h2>
+    <p class="h-sub reveal">Resume, transcripts, and certificate PDFs. Replace the <code>href</code> values in the <code>DOCS</code> array (js/data.js) with real links once you upload the files.</p>
+    <div class="dir reveal">
+      <div class="dir-head">~/career-documents</div>
+      <div id="docList"></div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="eyebrow">Background</div>
+    <h2 class="h-title reveal">Education</h2>
+    <p class="h-sub reveal">Academic timeline. Edit the <code>EDUCATION</code> array in js/data.js to update.</p>
+    <div class="tl" id="eduList"></div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-term reveal">
+      <div class="contact-line"><span class="k">$</span> contact --initiate --analyst "ditto-d"</div>
+      <div class="contact-line">resolving preferred channels... <span style="color:#7CDB8A">done</span></div>
+      <div class="contact-grid" id="contactGrid"></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> DITTO D — SOC Analyst Portfolio</span>
+      <span>status: <span style="color:#7CDB8A">actively seeking opportunities</span></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/render-index.js"></script>
+<script src="js/common.js"></script>
+</body>
+</html>

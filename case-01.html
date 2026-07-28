@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CASE-01 · SIEM Log Analysis & Threat Detection using Splunk — Ditto D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>DITTO_D // PORTFOLIO</div>
+    <div class="navlinks">
+      <a href="index.html#capabilities">skills</a>
+      <a href="index.html#cases">case files</a>
+      <a href="index.html#credentials">credentials</a>
+      <a href="index.html#documents">documents</a>
+      <a href="index.html#contact">contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="breadcrumb"><a href="index.html">portfolio</a> / <a href="index.html#cases">case files</a> / CASE-01</div>
+
+  <div class="case-hero">
+    <div class="case-hero-top">
+      <span class="case-id">CASE-01</span>
+      <span class="status-pill resolved">RESOLVED</span>
+    </div>
+    <h1>SIEM Log Analysis & Threat Detection using Splunk</h1>
+    <p class="lede">
+      Standing up Splunk as a lightweight SIEM to monitor a Linux server's SSH authentication log in real time,
+      and building a detection rule that catches unauthorized login attempts as they happen.
+    </p>
+    <div class="meta-strip">
+      <div><span class="m-label">Category</span><span class="m-value">SOC / SIEM Monitoring</span></div>
+      <div><span class="m-label">Environment</span><span class="m-value">Kali Linux → Ubuntu Server (SSH)</span></div>
+      <div><span class="m-label">Platform</span><span class="m-value">Splunk Enterprise</span></div>
+      <div><span class="m-label">Type</span><span class="m-value">Cybersecurity Training Project</span></div>
+    </div>
+  </div>
+
+  <div class="prose">
+
+    <h2>Objective</h2>
+    <p>
+      Failed SSH logins are one of the first signals a SOC analyst learns to watch — they can mean a user mistyped
+      a password, or they can be the leading edge of a brute-force attempt. The goal of this project was to
+      build the monitoring pipeline that turns that raw log noise into a real-time, actionable alert: ingest a
+      Linux server's authentication log into Splunk, search it for failed password events, and configure an
+      alert that fires the moment one occurs.
+    </p>
+
+    <h2>Environment</h2>
+    <p>
+      The setup used two machines: a Kali Linux box acting as the connecting client, and an Ubuntu server as the
+      monitored host running Splunk Enterprise. Connectivity between the two was established over SSH before any
+      log configuration began.
+    </p>
+    <div class="callout">
+      <span class="c-label">Note from the field</span>
+      <p>An early wrong password during the initial SSH connection wasn't a problem — that failed attempt is
+      exactly the kind of event the detection rule is designed to catch later, so it made a useful first test case.</p>
+    </div>
+
+    <h2>Building the detection pipeline</h2>
+    <ol>
+      <li><strong>Connect over SSH</strong> — established the Kali-to-Ubuntu SSH session that would generate the authentication events to monitor.</li>
+      <li><strong>Log into Splunk</strong> — accessed the Splunk Enterprise web console on the Ubuntu host.</li>
+      <li><strong>Add the data source</strong> — under Settings → Add Data → Monitor, pointed Splunk at <code>/var/log/auth.log</code> to continuously monitor the file.</li>
+      <li><strong>Set the source type</strong> — classified the input as <code>linux_secure</code> so Splunk parses the authentication events correctly.</li>
+      <li><strong>Review and submit</strong> — confirmed the input settings (host value, index, continuous monitoring) and submitted the configuration.</li>
+      <li><strong>Search the ingested data</strong> — ran a search to confirm events were flowing in, then filtered specifically for failed password attempts.</li>
+    </ol>
+
+    <h2>The search query</h2>
+    <p>Once the log source was live, the following search isolated failed SSH login attempts from the full authentication event stream:</p>
+    <div class="codeblock"><code><span class="c-muted"># Confirm ingestion</span>
+source="/var/log/auth.log" host="ubuntu" sourcetype="linux_secure"
+
+<span class="c-muted"># Isolate failed login attempts</span>
+source="/var/log/auth.log" "Failed password"</code></div>
+    <p>
+      This surfaced every recorded event where an incorrect password was used to attempt an SSH login —
+      including the source IP and port, which is what an analyst needs to start tracing repeat offenders
+      or brute-force patterns.
+    </p>
+
+    <h2>Alert configuration</h2>
+    <p>The search was then saved as a scheduled, real-time alert so detection didn't depend on someone manually re-running the query:</p>
+    <ul>
+      <li>Title: <strong>Failed Login Attempts</strong></li>
+      <li>Alert type: <strong>Real-time</strong>, expiring after 5 minutes per trigger window</li>
+      <li>Trigger condition: fires per result — every matching "Failed password" event</li>
+      <li>Trigger action: added to Splunk's Triggered Alerts panel</li>
+      <li>Severity: <strong>Medium</strong></li>
+    </ul>
+    <p>
+      With the alert saved, any subsequent failed SSH login on the host — attempted with the wrong password —
+      appeared immediately in the Splunk alerts page, giving a live, trackable record of unauthorized access attempts.
+    </p>
+
+    <h2>Outcome</h2>
+    <p>
+      The finished pipeline demonstrated the full loop a SOC analyst is responsible for: getting the right log
+      source into a SIEM, writing a search that isolates the signal that matters, and turning that search into
+      an alert that surfaces the event without anyone having to go looking for it. It's a small-scale version of
+      exactly the kind of detection logic used in production SOC environments to flag brute-force and
+      credential-stuffing attempts against SSH-exposed servers.
+    </p>
+
+    <h2>Skills demonstrated</h2>
+    <div class="skills-used">
+      <span class="tag">Splunk</span><span class="tag">SPL</span><span class="tag">Log Ingestion</span>
+      <span class="tag">Linux Administration</span><span class="tag">SSH</span><span class="tag">Real-Time Alerting</span>
+      <span class="tag">Alert Triage</span><span class="tag">Incident Documentation</span>
+    </div>
+  </div>
+
+  <div class="case-nav">
+    <a href="index.html#cases">← Back to case files</a>
+    <a href="case-02.html">Next case: Sign Language ML →</a>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-term reveal">
+      <div class="contact-line"><span class="k">$</span> contact --initiate --analyst "ditto-d"</div>
+      <div class="contact-line">resolving preferred channels... <span style="color:#7CDB8A">done</span></div>
+      <div class="contact-grid" id="contactGrid"></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> DITTO D — SOC Analyst Portfolio</span>
+      <span>status: <span style="color:#7CDB8A">actively seeking opportunities</span></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/common.js"></script>
+</body>
+</html>
