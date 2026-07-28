@@ -1,40 +1,78 @@
-/* Renders the footer contact block and year. Shared by every page.
-   Expects data.js to be loaded first. */
+/* =========================================================================
+   EDIT YOUR DATA HERE. Every page on the site reads from this one file.
+   ========================================================================= */
 
-function renderCommon(){
-  const yearEl = document.getElementById("year");
-  if(yearEl) yearEl.textContent = new Date().getFullYear();
+const PROFILE = {
+  email: "dittodickson03@gmail.com",
+  phone: "+91 8438710313",
+  linkedin: "linkedin.com/in/dittodickson",
+  github: "github.com/ditto03",
+  resumeHref: "#" // replace with a real link to your resume file
+};
 
-  const contactGrid = document.getElementById("contactGrid");
-  if(contactGrid){
-    contactGrid.innerHTML = `
-      <a class="contact-item" href="mailto:${PROFILE.email}">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg>
-        ${PROFILE.email}
-      </a>
-      <a class="contact-item" href="tel:${PROFILE.phone.replace(/\s/g,'')}">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .7 3a2 2 0 01-.4 2L8 10.3a16 16 0 006 6l1.6-1.4a2 2 0 012-.4c1 .4 2 .6 3 .7a2 2 0 011.7 2z"/></svg>
-        ${PROFILE.phone}
-      </a>
-      <a class="contact-item" href="https://${PROFILE.linkedin}" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9v12M10 13a4 4 0 018 0v8"/></svg>
-        LinkedIn
-      </a>
-      <a class="contact-item" href="https://${PROFILE.github}" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 00-1-2.6c3 0 6-2 6-5.6a4.5 4.5 0 00-1.3-3.2 4.2 4.2 0 00-.1-3.2s-1-.3-3.4 1.3a11.5 11.5 0 00-6.4 0C6.6 3.2 5.6 3.5 5.6 3.5a4.2 4.2 0 00-.1 3.2A4.5 4.5 0 004.2 9.9c0 3.6 3 5.6 6 5.6a3.4 3.4 0 00-.9 2.4V21"/></svg>
-        GitHub
-      </a>
-    `;
-  }
+const SKILLS = [
+  { id: "MOD-01", name: "SIEM & Log Analysis", desc: "Splunk: SPL queries, log analysis, event correlation, alert triage.", tags: ["Splunk","SPL","Correlation"] },
+  { id: "MOD-02", name: "Security Concepts", desc: "OWASP Top 10, IOC identification, alert prioritization, incident triage.", tags: ["OWASP Top 10","IOC","Triage"] },
+  { id: "MOD-03", name: "Network Security", desc: "Wireshark: packet analysis, traffic monitoring, protocol inspection.", tags: ["Wireshark","Packet Analysis"] },
+  { id: "MOD-04", name: "Web Security Testing", desc: "Burp Suite: HTTP/HTTPS traffic analysis, vulnerability assessment.", tags: ["Burp Suite","Vuln. Assessment"] },
+  { id: "MOD-05", name: "Networking", desc: "TCP/IP, DNS, HTTP/HTTPS, protocol analysis, network troubleshooting.", tags: ["TCP/IP","DNS"] },
+  { id: "MOD-06", name: "Operating Systems", desc: "Windows, Linux, Kali Linux — command-line ops and log analysis.", tags: ["Linux","Windows","Kali"] },
+  { id: "MOD-07", name: "Scanning & Enumeration", desc: "Nmap: host discovery, port scanning, service enumeration.", tags: ["Nmap","Recon"] },
+];
 
-  const resumeBtn = document.getElementById("resumeBtn");
-  if(resumeBtn) resumeBtn.href = PROFILE.resumeHref;
+// "page" points each case to its detail page. Add more cases the same way.
+const CASES = [
+  {
+    id: "CASE-01",
+    status: "resolved", // "resolved" | "completed"
+    title: "SIEM Log Analysis & Threat Detection using Splunk",
+    summary: "Configured Splunk to ingest Linux SSH authentication logs and built a real-time detection rule for unauthorized login attempts.",
+    findings: [
+      "Ingested Ubuntu /var/log/auth.log into Splunk and set source type to linux_secure.",
+      "Wrote SPL queries to surface failed SSH logins, brute-force patterns, and repeat offenders by IP.",
+      "Correlated authentication events across log sources to reduce false positives and surface real IOCs.",
+      "Built and tested a real-time alert on \"Failed password\" events with medium severity triage.",
+    ],
+    tags: ["Splunk","SPL","Linux","SSH","Real-Time Alerting"],
+    page: "case-01.html"
+  },
+  {
+    id: "CASE-02",
+    status: "completed",
+    title: "Communication Barrier Nullifier — Sign Language ML",
+    summary: "Real-time sign-language-to-speech system using computer vision and an ensemble of classical ML models.",
+    findings: [
+      "Used MediaPipe to track 21 hand landmarks per frame for gesture recognition.",
+      "Trained and evaluated Random Forest, AdaBoost, and Gradient Boosting classifiers.",
+      "Combined models with a Hybrid Stacking classifier to improve overall accuracy.",
+      "Added bidirectional text-to-speech and speech-to-text conversion for two-way communication.",
+    ],
+    tags: ["Python","OpenCV","MediaPipe","Scikit-learn"],
+    page: "case-02.html"
+  },
+];
 
-  // Scroll reveal (respects prefers-reduced-motion via CSS transition-duration override)
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-}
+const CREDS = [
+  { name: "EC-Council Certified SOC Analyst (CSA)", issuer: "EC-Council", meta: "Security monitoring · Incident response · Threat intel · Alert triage · Log analysis", initials: "CSA" },
+];
 
-document.addEventListener("DOMContentLoaded", renderCommon);
+const DOCS = [
+  { name: "Resume", ext: "pdf", meta: "Updated recently", href: "#" },
+  { name: "CSA_Certificate", ext: "pdf", meta: "EC-Council", href: "#" },
+  { name: "Academic_Transcript", ext: "pdf", meta: "Sathyabama IST", href: "#" },
+];
+
+const EDUCATION = [
+  { year: "2022 – 2025", title: "B.Sc. Computer Science", org: "Sathyabama Institute of Science and Technology · CGPA 7.65" },
+  { year: "2020 – 2022", title: "12th Grade", org: "Pius XI Higher Secondary School · 64.83%" },
+  { year: "2019 – 2020", title: "10th Grade", org: "St. Joseph High School · 95.6%" },
+];
+
+const LOG_TICKER = [
+  { lvl: "OK", msg: "auth.log: session opened for user <strong>ditto</strong> — role: SOC Analyst L1" },
+  { lvl: "INFO", msg: "cert.log: <strong>EC-Council CSA</strong> credential verified" },
+  { lvl: "INFO", msg: "skills.log: <strong>Splunk, Wireshark, Burp Suite, Nmap</strong> loaded" },
+  { lvl: "OK", msg: "case.log: <strong>CASE-01</strong> SSH brute-force detection — resolved" },
+  { lvl: "OK", msg: "case.log: <strong>CASE-02</strong> sign-language ML system — completed" },
+  { lvl: "WARN", msg: "status.log: currently <strong>seeking SOC / cybersecurity opportunities</strong>" },
+];
