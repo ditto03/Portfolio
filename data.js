@@ -12,7 +12,7 @@ const PROFILE = {
   location: "Kanyakumari, Tamil Nadu, India",
   about:
     "B.Sc. Computer Science graduate with an EC-Council Certified SOC Analyst (CSA) certification. Passionate about threat detection, SIEM, incident response, and security monitoring. Hands-on experience with Splunk, Wireshark, Burp Suite, Nmap, Kali Linux, and Linux log analysis.",
-  resumeHref: "resume.pdf"
+  resumeHref: "SOC_Analyst_Resume.pdf"
 };
 
 const SKILLS = [
@@ -109,19 +109,31 @@ const DOCS = [
     name: "Resume",
     ext: "pdf",
     meta: "Latest Resume",
-    href: "resume.pdf"
+    href: "SOC_Analyst_Resume.pdf"
   },
   {
     name: "EC-Council CSA Certificate",
     ext: "pdf",
     meta: "Certification",
-    href: "#"
+    href: "ECC-CSA-Certificate.pdf"
+  },
+   {
+    name: "Cybersecurity Project",
+    ext: "pdf",
+    meta: "Splunk SIEM Project",
+    href: "Monitoring Failed SSH Login Activities in Splunk.pdf"
   },
   {
-    name: "Academic Transcript",
+    name: "Academic Project",
     ext: "pdf",
     meta: "Sathyabama Institute of Science and Technology",
-    href: "#"
+    href: "Acadamic Project.pdf"
+  },
+   {
+    name: "Degree Certificate",
+    ext: "pdf",
+    meta: "B.sc. Computer Science",
+    href: "Degree Certificate.pdf"
   }
 ];
 
