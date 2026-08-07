@@ -109,7 +109,7 @@ const CREDS = [
     initials: "CSA"
   },
    {
-    name: "EC-Council Certified SOC Analyst (CSA)",
+    name: "Cybersecurity Job Simulation  (FJS)",
     issuer: "Forage",
     meta:
       "Phishing • Incident Response • SOC • Threat Analysis",
