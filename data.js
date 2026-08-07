@@ -57,6 +57,12 @@ const SKILLS = [
     name: "Networking",
     desc: "Strong understanding of TCP/IP, HTTP, HTTPS, DNS, SSH and common network services.",
     tags: ["Networking", "HTTP", "HTTPS", "SSH"]
+  },
+   {
+    id: "MOD-08",
+    name: "Threat Intelligence (TADA v2)",
+    desc: "Hands-on experience using TADA v2 to document, analyze, and publish cyber threat intelligence. Skilled in profiling threat actors, documenting victim details, classifying incidents, writing analyst notes, and creating structured threat reports.",
+    tags: ["Threat Intelligence", "TADA v2", "Threat Analysis", "Incident Reporting"]
   }
 ];
 
@@ -116,6 +122,12 @@ const DOCS = [
     ext: "pdf",
     meta: "Certification",
     href: "ECC-CSA-Certificate.pdf"
+  },
+  {
+    name: "Cybersecurity Job Simulation Certificate",
+    ext: "pdf",
+    meta: "Certification",
+    href: "Cybersecurity Job Simulation Certificate.pdf"
   },
    {
     name: "Cybersecurity Project",
