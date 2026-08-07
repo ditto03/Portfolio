@@ -107,6 +107,13 @@ const CREDS = [
     meta:
       "Security Monitoring • Incident Response • Threat Intelligence • Log Analysis",
     initials: "CSA"
+  },
+   {
+    name: "EC-Council Certified SOC Analyst (CSA)",
+    issuer: "Forage",
+    meta:
+      "Phishing • Incident Response • SOC • Threat Analysis",
+    initials: "FJS"
   }
 ];
 
