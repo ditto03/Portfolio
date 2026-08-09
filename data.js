@@ -109,7 +109,7 @@ const CREDS = [
     initials: "CSA"
   },
    {
-    name: "Introduction to Cybersecurity (CSA)",
+    name: "Introduction to Cybersecurity (IC)",
     issuer: "Cisco Networking Academy",
     meta:
       "Cybersecurity Fundamentals • Threats • Security Concepts",
