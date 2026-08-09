@@ -109,6 +109,13 @@ const CREDS = [
     initials: "CSA"
   },
    {
+    name: "Introduction to Cybersecurity (CSA)",
+    issuer: "Cisco Networking Academy",
+    meta:
+      "Cybersecurity Fundamentals • Threats • Security Concepts",
+    initials: "IC"
+  },
+   {
     name: "Cybersecurity Job Simulation  (FJS)",
     issuer: "Forage",
     meta:
@@ -135,6 +142,12 @@ const DOCS = [
     ext: "pdf",
     meta: "Certification",
     href: "Cybersecurity Job Simulation Certificate.pdf"
+  },
+   {
+    name: "Introduction_to_Cybersecurity_certificate",
+    ext: "pdf",
+    meta: "Certification",
+    href: "Introduction_to_Cybersecurity_certificate.pdf"
   },
    {
     name: "Cybersecurity Project",
