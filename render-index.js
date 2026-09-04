@@ -82,3 +82,17 @@ eduList.innerHTML = EDUCATION.map(e => `
     <div class="tl-org">${e.org}</div>
   </div>
 `).join("");
+
+// Experience
+const experienceList = document.getElementById("experienceList");
+
+if (experienceList) {
+  experienceList.innerHTML = EXPERIENCE.map(e => `
+    <div class="tl-item reveal">
+      <div class="tl-year">${e.year}</div>
+      <div class="tl-title">${e.title}</div>
+      <div class="tl-org">${e.org}</div>
+      <div class="tl-org">${e.desc}</div>
+    </div>
+  `).join("");
+}
