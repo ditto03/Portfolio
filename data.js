@@ -123,6 +123,14 @@ const CREDS = [
     initials: "FJS"
   }
 ];
+const EXPERIENCE = [
+   { 
+      year: "August 2026 - Present",
+      title: "Threat Analyst Intern",
+      org: "Technisanct",
+      desc: "Working on cybersecurity threat analysis, threat intelligence, security monitoring, IOC identification, and incident investigation."
+   }
+   ];
 
 const DOCS = [
   {
