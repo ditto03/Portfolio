@@ -109,6 +109,13 @@ const CREDS = [
     initials: "CSA"
   },
    {
+    name: "Certified IT Infrastructure and Cyber SOC Analyst",
+    issuer: "RedTeam Hacker Academy",
+    meta:
+      "IT Infrastructure • Security Operations • Security Monitoring • Incident Response • Threat Intelligence",
+    initials: "CICSA"
+  },
+   {
     name: "Introduction to Cybersecurity (IC)",
     issuer: "Cisco Networking Academy",
     meta:
@@ -144,6 +151,12 @@ const DOCS = [
     ext: "pdf",
     meta: "Certification",
     href: "ECC-CSA-Certificate.pdf"
+  },
+    {
+    name: "RedTeam-Certified IT Infrastructure and Cyber SOC Analyst Certificate",
+    ext: "pdf",
+    meta: "Certification",
+    href: "Certified IT Infrastructure and Cyber SOC Analyst Certificate.pdf"
   },
   {
     name: "Cybersecurity Job Simulation Certificate",
